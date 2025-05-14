@@ -1,3 +1,16 @@
 spring:
   application:
     name: demo
+  datasource:
+    url: jdbc:postgresql://localhost:5433/postgres_db
+    username: postgres_user
+    password: postgres_password
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 8080
