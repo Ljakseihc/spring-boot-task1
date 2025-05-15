@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode(exclude = {"name", "cost", "isAvailable"})
+@EqualsAndHashCode(of = {"id"})
 @Entity
 @Table(name = "product")
 public class Product {

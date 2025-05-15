@@ -17,17 +17,34 @@ repositories {
 	mavenCentral()
 }
 
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+ext {
+	jsonwebtokenVersion = '0.12.6'
+	lombokVersion = '1.18.38'
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
+	implementation "io.jsonwebtoken:jjwt-api:$jsonwebtokenVersion"
+
+	compileOnly "org.projectlombok:lombok:$lombokVersion"
+	annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
 	runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly "io.jsonwebtoken:jjwt-impl:$jsonwebtokenVersion"
+	runtimeOnly "io.jsonwebtoken:jjwt-jackson:$jsonwebtokenVersion"
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
