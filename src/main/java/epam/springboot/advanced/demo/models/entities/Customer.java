@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode(exclude = {"name", "email", "money", "products"})
+@EqualsAndHashCode(of = {"id"})
 @Entity
 @Table(name = "customer")
 public class Customer {

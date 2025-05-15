@@ -15,7 +15,6 @@ import java.util.NoSuchElementException;
 @RestControllerAdvice
 public class ErrorHandler {
 
-
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NoSuchElementException.class)
@@ -38,4 +37,14 @@ public class ErrorHandler {
         );
     }
 
+    @ResponseBody
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public SimpleErrorResponse handleGlobalException(Exception ex) {
+        log.error(ex.getLocalizedMessage());
+        return new SimpleErrorResponse(
+                "Internal error",
+                "500"
+        );
+    }
 }
