@@ -26,6 +26,8 @@ configurations {
 ext {
 	jsonwebtokenVersion = '0.12.6'
 	lombokVersion = '1.18.38'
+	flywayVersion = '11.8.2'
+	postgresDriverVersion = '42.7.5'
 }
 
 dependencies {
@@ -35,11 +37,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 
 	implementation "io.jsonwebtoken:jjwt-api:$jsonwebtokenVersion"
+	implementation "org.flywaydb:flyway-core:$flywayVersion"
+	implementation "org.flywaydb:flyway-database-postgresql:$flywayVersion"
 
 	compileOnly "org.projectlombok:lombok:$lombokVersion"
 	annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
-	runtimeOnly 'org.postgresql:postgresql'
+	runtimeOnly "org.postgresql:postgresql:$postgresDriverVersion"
 	runtimeOnly "io.jsonwebtoken:jjwt-impl:$jsonwebtokenVersion"
 	runtimeOnly "io.jsonwebtoken:jjwt-jackson:$jsonwebtokenVersion"
 
