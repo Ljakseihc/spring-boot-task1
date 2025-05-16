@@ -5,6 +5,7 @@ import epam.springboot.advanced.demo.models.entities.Product;
 import epam.springboot.advanced.demo.models.exceptions.ConflictWithExistingResourceException;
 import epam.springboot.advanced.demo.repositories.ProductRepository;
 import epam.springboot.advanced.demo.services.ProductService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +14,10 @@ import java.util.Objects;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository repository;
-
-    public ProductServiceImpl(ProductRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public Long saveProduct(ProductSaveDTO dto) {

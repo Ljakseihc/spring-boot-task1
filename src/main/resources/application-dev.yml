@@ -18,5 +18,17 @@ spring:
     secret: 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
     expiration: 3600000
 
+management:
+  server:
+    port: 1010
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: health,beans,info,env,flyway,metrics
+  endpoint:
+    health:
+      show-details: always
+
 server:
   port: 8080

@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -21,6 +23,9 @@ public class JwtUtils {
     @Value("${spring.jwt.expiration}")
     private long jwtExpiration;
 
+//    @Autowired
+//    private Environment env;
+
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final String ROLES = "roles";
 
@@ -30,6 +35,7 @@ public class JwtUtils {
                 .claim(ROLES, roles)
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + jwtExpiration))
+//                .expiration(new Date(System.currentTimeMillis() + env.getProperty("spring.jwt.expiration")))
                 .signWith(getSigningKey())
                 .compact();
     }
@@ -69,5 +75,6 @@ public class JwtUtils {
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(secretKey.getBytes());
+//        return Keys.hmacShaKeyFor(env.getProperty("spring.jwt.secret", String.class).getBytes());
     }
 }

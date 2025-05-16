@@ -27,6 +27,7 @@ public class SecurityConfig {
     public static final String CUSTOMER_PATH = "/customer/**";
     public static final String PRODUCT_PATH = "/product/**";
     public static final String LOGIN_PATH = "/login";
+    public static final String ACTUATOR_PATH = "/actuator/**";
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -43,6 +44,7 @@ public class SecurityConfig {
                 }))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(LOGIN_PATH).permitAll()
+                        .requestMatchers(ACTUATOR_PATH).permitAll()
 
                         .requestMatchers(HttpMethod.GET, CUSTOMER_PATH).hasAnyRole(USER_ROLE, ADMIN_ROLE)
                         .requestMatchers(HttpMethod.POST, CUSTOMER_PATH).hasAnyRole(USER_ROLE, ADMIN_ROLE)
@@ -53,6 +55,7 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.DELETE, CUSTOMER_PATH).hasRole(ADMIN_ROLE)
                         .requestMatchers(HttpMethod.DELETE, PRODUCT_PATH).hasRole(ADMIN_ROLE)
+//                        .requestMatchers(HttpMethod.GET, ACTUATOR_PATH).hasRole(ADMIN_ROLE)
 
                         .anyRequest().authenticated()
                 )
