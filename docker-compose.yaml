@@ -1,3 +1,5 @@
+version: '3.9'
+
 services:
   demo-db:
     image: postgres:17.5-alpine
@@ -8,6 +10,10 @@ services:
       POSTGRES_DB: postgres_db
     ports:
       - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - spring-boot-advanced-demo
 
   demo-service:
     build:
@@ -20,5 +26,44 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
     ports:
       - "8080:8080"
+      - "1010:1010"
     depends_on:
       - demo-db
+    networks:
+      - spring-boot-advanced-demo
+
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    depends_on:
+      - demo-service
+    networks:
+      - spring-boot-advanced-demo
+
+  grafana:
+    image: grafana/grafana:11.6.1
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    volumes:
+      - ./monitoring/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - grafana-data:/var/lib/grafana
+    depends_on:
+      - prometheus
+    networks:
+      - spring-boot-advanced-demo
+
+volumes :
+  prometheus-data :
+  grafana-data:
+  pgdata:
+
+networks:
+  spring-boot-advanced-demo:
+    driver: bridge

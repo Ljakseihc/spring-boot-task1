@@ -28,6 +28,7 @@ ext {
 	lombokVersion = '1.18.38'
 	flywayVersion = '11.8.2'
 	postgresDriverVersion = '42.7.5'
+	micrometerversion = '1.15.0'
 }
 
 dependencies {
@@ -35,6 +36,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
 	implementation "io.jsonwebtoken:jjwt-api:$jsonwebtokenVersion"
 	implementation "org.flywaydb:flyway-core:$flywayVersion"
@@ -46,6 +48,7 @@ dependencies {
 	runtimeOnly "org.postgresql:postgresql:$postgresDriverVersion"
 	runtimeOnly "io.jsonwebtoken:jjwt-impl:$jsonwebtokenVersion"
 	runtimeOnly "io.jsonwebtoken:jjwt-jackson:$jsonwebtokenVersion"
+	runtimeOnly "io.micrometer:micrometer-registry-prometheus:$micrometerversion"
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'

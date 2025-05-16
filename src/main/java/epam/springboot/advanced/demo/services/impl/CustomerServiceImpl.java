@@ -6,6 +6,7 @@ import epam.springboot.advanced.demo.models.exceptions.ConflictWithExistingResou
 import epam.springboot.advanced.demo.repositories.CustomerRepository;
 import epam.springboot.advanced.demo.services.CustomerService;
 import epam.springboot.advanced.demo.services.ProductService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +15,11 @@ import java.util.Objects;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository repository;
     private final ProductService productService;
-
-    public CustomerServiceImpl(CustomerRepository repository, ProductService productService) {
-        this.repository = repository;
-        this.productService = productService;
-    }
 
     @Override
     public Long saveCustomer(CustomerSaveDTO dto) {
